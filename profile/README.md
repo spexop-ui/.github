@@ -1,118 +1,184 @@
 # Spexop Design System
 
-A professional TypeScript design system with comprehensive design tokens and built-in theming support.
+Professional React component library with a flexible theme system. Build modern web applications with primitives-first architecture.
 
-## ✨ Key Features
+## 📦 Packages
 
-- **🎨 Design Tokens** - Complete TypeScript-first token system with s-prefix naming convention
-- **⚡ React Components** - Fully typed and tree-shakeable
-- **🎭 Built-in Themes** - Multiple theme options with dark mode support
-- **📦 Icon Integration** - Works seamlessly with Lucide Icons
-- **♿ Accessible** - WCAG 2.1 AA compliant components
-- **🚀 High Performance** - Optimized bundles and fast rendering
-- **💯 TypeScript** - Full type coverage with IntelliSense support
-- **📱 Responsive** - Mobile-first design approach
+- **[@spexop/react](./packages/react)** - 60+ React components with full theme support
+- **[@spexop/theme](./packages/theme)** - Theme system with 13 presets and 29+ export formats
+- **[@spexop/icons](./packages/icons)** - 269 icons with filled variants and brand icons
+- **[@spexop/cli](./packages/cli)** - CLI tools for scaffolding and utilities
 
 ## 🚀 Quick Start
 
+### For End Users (npm packages)
+
 ```bash
-# Install React components (includes tokens)
-npm install @spexop/react
-
-# Or install tokens separately
-npm install @spexop/tokens
-
-# Recommended: Add Lucide Icons
-npm install lucide-react
+npm install @spexop/react @spexop/theme @spexop/icons
 ```
 
-```tsx
-import { ThemeProvider, Button, Card, Text } from "@spexop/react";
-import { Search, Plus } from "lucide-react";
+### For Contributors (workspace development)
+
+See **[WORKSPACE.md](./WORKSPACE.md)** for complete workspace guide.
+
+```bash
+# Install dependencies
+pnpm install
+
+# Build packages
+pnpm build:icons && pnpm build:theme && pnpm build:react
+```
+
+### With Pre-built Theme
+
+```typescript
+import { Button, Grid, Card, Icon } from '@spexop/react';
+import { Home } from '@spexop/icons';
+import '@spexop/theme/dist/css/tech.css';
+import '@spexop/react/dist/index.css';
 
 function App() {
   return (
-    <ThemeProvider initialTheme="minimal">
-      <Card variant="glass" padding="large">
-        <Text size="2xl" weight="bold">
-          Welcome to Spexop
-        </Text>
-        <Button variant="primary" size="large">
-          <Search size={20} />
-          Get Started
-        </Button>
+    <Grid columns={12} gap={24}>
+      <Card>
+        <Icon name={Home} size={24} />
+        <Button variant="primary">Get Started</Button>
       </Card>
+    </Grid>
+  );
+}
+```
+
+### With Custom Theme
+
+```typescript
+import { ThemeProvider } from '@spexop/react';
+import { techPreset } from '@spexop/theme';
+
+function App() {
+  return (
+    <ThemeProvider theme={techPreset}>
+      <YourApp />
     </ThemeProvider>
   );
 }
 ```
 
----
+## ⚡ Quick Start with Helper Utilities
 
-## 📦 Packages
+Reduce boilerplate by 87% with Spexop helper utilities:
 
-| Package | Description | Status |
-|---------|-------------|--------|
-| [`@spexop/react`](https://github.com/spexop-ui/design-system/tree/main/packages/react) | React component library | ✅ Available |
-| [`@spexop/tokens`](https://github.com/spexop-ui/design-system/tree/main/packages/tokens) | Design tokens (colors, spacing, typography, etc.) | ✅ Available |
-| [`@spexop/utils`](https://github.com/spexop-ui/design-system/tree/main/packages/utils) | Utility functions | ✅ Available |
-| `@spexop/vue` | Vue 3 adapters | 🚧 In Development |
-| `@spexop/angular` | Angular adapters | 🚧 In Development |
+### Before (145 lines)
 
-### Recommended Icons
+```typescript
+// Manual hash routing
+const getPathFromHash = () => window.location.hash.slice(1) || "/";
+const [currentPath, setCurrentPath] = useState(getPathFromHash);
+useEffect(() => {
+  const handleHashChange = () => setCurrentPath(getPathFromHash());
+  window.addEventListener("hashchange", handleHashChange);
+  return () => window.removeEventListener("hashchange", handleHashChange);
+}, []);
 
-We recommend using [**Lucide Icons**](https://lucide.dev/) - a beautiful, consistent open-source icon library that perfectly complements our design system:
+// Manual command generation (50+ lines)
+const commands = [
+  {
+    id: "home",
+    label: "Go to Home",
+    description: "Navigate to home page",
+    category: "Navigation",
+    onSelect: () => {
+      window.location.hash = "/";
+      window.scrollTo(0, 0);
+    },
+  },
+  // ... repetitive
+];
 
-- **1000+ icons** - Comprehensive coverage
-- **Consistent style** - Stroke-based, matches our minimal theme
-- **Framework support** - React, Vue, Angular, Svelte, Vanilla JS
-- **ISC License** - Free and open-source
-- **Tree-shakeable** - Import only what you need
-
-```bash
-npm install lucide-react    # For React
-npm install lucide          # For Vanilla JS
-npm install lucide-vue-next # For Vue
+// Manual search data (40+ lines)
+// Manual HMR setup (12+ lines)
+// Manual provider nesting (10+ lines)
 ```
 
----
+### After (30 lines)
 
-## 🎨 Component Categories
+```typescript
+import { 
+  useHashRouter, 
+  createNavigationCommands, 
+  createSearchResults,
+  createSpexopRoot,
+  SpexopProvider,
+  AppLayout 
+} from '@spexop/react';
 
-**Layout:** Container, Grid, Section  
-**UI:** Button, Card, Text, Badge, Alert  
-**Forms:** Input, Textarea, Select, Checkbox, Radio, Switch  
-**Navigation:** Header, Sidebar, Tabs, PageHeader  
-**Advanced:** Hero, FeatureCard, Toast, Skeleton, SettingsPanel  
-**Animation:** Motion, FadeIn, SlideIn, ZoomIn, Stagger
+// Define routes once
+const routes = [
+  { path: '/', label: 'Home', description: 'Home page', icon: 'Home' },
+  { path: '/about', label: 'About', description: 'About us', icon: 'Info' },
+];
 
----
+// Generate everything automatically
+const commands = createNavigationCommands(routes);
+const searchData = createSearchResults(routes);
 
-## 📚 Resources
+function App() {
+  const { Component } = useHashRouter({
+    '/': HomePage,
+    '/about': AboutPage,
+  });
+  
+  return (
+    <SpexopProvider>
+      <AppLayout topBar={<TopBar />} sidebar={<Sidebar />}>
+        <CommandPalette commands={commands} />
+        <SearchModal results={searchData} />
+        {Component && <Component />}
+      </AppLayout>
+    </SpexopProvider>
+  );
+}
 
-- **[Main Repository](https://github.com/spexop-ui/design-system)** - Source code and documentation
-- **[Documentation Site](https://spexop.design)** - Live examples and guides *(coming soon)*
-- **[Storybook](https://storybook.spexop.design)** - Interactive component explorer *(coming soon)*
-- **[npm Packages](https://www.npmjs.com/org/spexop)** - Published packages
+createSpexopRoot(document.getElementById('root')!).render(<App />);
+```
 
----
+**Result:** 87% less boilerplate, fully typed, accessible by default.
+
+[Learn more about helper utilities →](./packages/react/src/utils/README.md)
+
+## 📖 Documentation
+
+For examples and usage guides, see the documentation site: [docs.spexop.com](https://docs.spexop.com)
+
+### For Contributors
+
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Contribution guidelines
+- [Getting Started](./docs/getting-started.md) - Quick start for contributors
+
+### For End Users
+
+- [Theme System Guide](./packages/theme/README.md)
+- [Component Documentation](./packages/react/README.md)
+- [Icons Catalog](./packages/icons/ICONS.md) - All 269 icons
+- [CLI Tools](./packages/cli/README.md)
+
+## 🔗 Links
+
+- **Website**: <https://spexop.com>
+- **Theme Builder**: <https://builder.spexop.com>
+- **Documentation**: <https://docs.spexop.com>
+- **npm**: [@spexop/react](https://www.npmjs.com/package/@spexop/react), [@spexop/theme](https://www.npmjs.com/package/@spexop/theme), [@spexop/icons](https://www.npmjs.com/package/@spexop/icons)
 
 ## 🤝 Contributing
 
-We welcome contributions! Check out our [Contributing Guidelines](https://github.com/spexop-ui/design-system/blob/main/CONTRIBUTING.md) to get started.
-
----
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for contribution guidelines.
 
 ## 📄 License
 
-All Spexop packages are released under the [MIT License](https://github.com/spexop-ui/design-system/blob/main/LICENSE).
+MIT © Spexop Team
 
 ---
 
-<div align="center">
+**Spexop Design System** • Built with TypeScript & React
 
-Built by Cuneyt Cakar (<https://github.com/olmstedian>)
-
-[GitHub](https://github.com/spexop-ui) • [npm](https://www.npmjs.com/org/spexop) • [Website](https://spexop.com)
-
-</div>
+[GitHub](https://github.com/spexop-ui/spexop-packages) • [npm](https://www.npmjs.com/org/spexop) • [Website](https://spexop.com)
