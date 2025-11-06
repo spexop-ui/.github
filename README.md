@@ -1,52 +1,28 @@
-# 🏆 Spexop Design System
+# Spexop Design System
 
-### Enterprise-grade React components with 317 TypeScript design tokens and Porsche-inspired theming
+**Primitives-First Design System** built with TypeScript and React. Build modern web applications with production-ready components, a flexible theme system, and accessibility out of the box.
 
-Build stunning web applications with production-ready components, a complete token system, and flexible theming out of the box.
+## ⚠️ Deprecation Notice
+
+**Current package versions are deprecated.** We are pruning features to prepare for stable public release (v1.0.0). Please wait for the stable release or use the PRO version for advanced features.
+
+**Status:** Maintenance mode - preparing for v1.0.0 stable release  
+**Timeline:** Stable release coming after pruning  
+**Alternative:** Use PRO version for advanced features  
+**Updates:** See [GitHub](https://github.com/spexop-ui/spexop-packages) for progress
 
 ---
 
 ## ✨ Key Features
 
-- **🎨 Design Tokens** - Complete TypeScript-first token system with s-prefix naming convention
-- **⚡ React Components** - Production-ready, fully typed, and tree-shakeable
-- **🎭 Built-in Themes** - 
-- **📦 Icon Library** - Optimized SVG icons with automatic tree-shaking
-- **♿ Accessible** - WCAG 2.1 AA compliant components
-- **🚀 High Performance** - Sub-millisecond rendering, optimized bundles
+- **🎨 Design Tokens** - TypeScript-first token system with CSS variables
+- **⚡ React Components** - ~60 production-ready, fully typed, tree-shakeable components
+- **🎭 Theme System** - Basic presets and essential export formats
+- **📦 Icon Library** - 281 optimized SVG icons with automatic tree-shaking
+- **♿ Accessible** - WCAG 2.1 AA+ compliant components
+- **🚀 High Performance** - Optimized bundles and rendering
 - **💯 TypeScript** - 100% type coverage with full IntelliSense support
 - **📱 Responsive** - Mobile-first design approach
-
----
-
-## 🚀 Quick Start
-
-```bash
-# Install React components (includes tokens and icons)
-npm install @spexop/react
-
-# Or install tokens separately
-npm install @spexop/tokens
-```
-
-```tsx
-import { ThemeProvider, Button, Card, Text } from "@spexop/react";
-
-function App() {
-  return (
-    <ThemeProvider initialTheme="porsche">
-      <Card variant="glass" padding="large">
-        <Text size="2xl" weight="bold">
-          Welcome to Spexop
-        </Text>
-        <Button variant="primary" size="large">
-          Get Started
-        </Button>
-      </Card>
-    </ThemeProvider>
-  );
-}
-```
 
 ---
 
@@ -54,44 +30,141 @@ function App() {
 
 | Package | Description | Status |
 |---------|-------------|--------|
-| [`@spexop/react`](https://github.com/spexop-ui/design-system/tree/main/packages/react) | React component library | ✅ Production Ready |
-| [`@spexop/tokens`](https://github.com/spexop-ui/design-system/tree/main/packages/tokens) | Design tokens (colors, spacing, typography, etc.) | ✅ Production Ready |
-| [`@spexop/icons`](https://github.com/spexop-ui/design-system/tree/main/packages/icons) | Icon library with tree-shaking | ✅ Production Ready |
-| [`@spexop/utils`](https://github.com/spexop-ui/design-system/tree/main/packages/utils) | Utility functions | ✅ Production Ready |
-| `@spexop/vue` | Vue 3 adapters | 🚧 Planned |
-| `@spexop/angular` | Angular adapters | 🚧 Planned |
+| [`@spexop/react`](./packages/react) | React component library (~60 public tier components) | ⚠️ Deprecated - preparing for v1.0.0 |
+| [`@spexop/theme`](./packages/theme) | Theme system (basic presets, essential formats) | ⚠️ Deprecated - preparing for v1.0.0 |
+| [`@spexop/icons`](./packages/icons) | Icon library (281 icons) | ✅ Public |
+
+**Note:** CLI and MCP tools are available in the PRO version only.
+
+---
+
+## 🚀 Quick Start
+
+### Install Packages
+
+```bash
+npm install @spexop/react @spexop/theme @spexop/icons
+```
+
+### Basic Usage
+
+```tsx
+import { Button, Grid, Card, Icon } from '@spexop/react';
+import { Home } from '@spexop/icons';
+import '@spexop/theme/dist/css/tech.css';
+import '@spexop/react/dist/index.css';
+
+function App() {
+  return (
+    <Grid columns={12} gap={24}>
+      <Card>
+        <Icon name={Home} size={24} />
+        <Button variant="primary">Get Started</Button>
+      </Card>
+    </Grid>
+  );
+}
+```
+
+### With Theme Configuration
+
+```tsx
+import { generateCSS, techPreset } from '@spexop/theme';
+import { useThemeUtil } from '@spexop/react';
+import { useEffect } from 'react';
+
+function App() {
+  useEffect(() => {
+    const css = generateCSS(techPreset);
+    const style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+  }, []);
+
+  const { resolvedMode, setMode } = useThemeUtil({ defaultMode: 'auto' });
+
+  return <YourApp />;
+}
+```
 
 ---
 
 ## 🎨 Component Categories
 
-**Layout:** Container, Grid, Section  
-**UI:** Button, Card, Text, Badge, Alert  
-**Forms:** Input, Textarea, Select, Checkbox, Radio, Switch  
-**Navigation:** Header, Sidebar, Tabs, PageHeader  
-**Advanced:** Hero, FeatureCard, Toast, Skeleton, SettingsPanel  
-**Animation:** Motion, FadeIn, SlideIn, ZoomIn, Stagger
+**Primitives:** Grid, GridItem, Stack, Container, Spacer  
+**Buttons:** Button, IconButton, ButtonGroup  
+**Cards:** Card (with CardHeader, CardBody, CardFooter)  
+**Forms:** TextInput, TextArea, Checkbox, RadioGroup, Select, Form, FormField, Toggle  
+**Navigation:** Link, NavLink, Breadcrumb, Tabs, Pagination  
+**Layout:** Section, Accordion, PageLayout, Footer  
+**Overlays:** Modal, Tooltip, Popover  
+**Display:** Avatar, Badge, Divider, Icon, Image, ThemeToggle  
+**Feedback:** Alert, Spinner, Progress, Skeleton  
+**Data:** Table  
+**Typography:** Heading, Text, PageTitle  
+**Animations:** FadeIn, Motion  
+**Utilities:** ErrorBoundary
+
+**Note:** Advanced components (Carousel, CodeBlock, DataTable, etc.) are available in the PRO version only.
 
 ---
 
 ## 📚 Resources
 
-- **[Main Repository](https://github.com/spexop-ui/design-system)** - Source code and full documentation
-- **[Documentation Site](https://spexop.design)** - Live examples and guides *(coming soon)*
-- **[Storybook](https://storybook.spexop.design)** - Interactive component explorer *(coming soon)*
+- **[Main Repository](https://github.com/spexop-ui/spexop-packages)** - Source code and documentation
+- **[Component Documentation](./packages/react/README.md)** - Component API and examples
+- **[Theme System Guide](./packages/theme/README.md)** - Theme configuration and usage
+- **[Icons Catalog](./packages/icons/README.md)** - All 281 icons
 - **[npm Packages](https://www.npmjs.com/org/spexop)** - Published packages
+
+---
+
+## 🎯 Design Philosophy
+
+**The Spexop Way** - 7 Fundamental Principles:
+
+1. **Primitives before patterns** - Master Grid, Stack, Container, Spacer first
+2. **Borders before shadows** - Use strong 2-3px borders instead of heavy shadows
+3. **Typography before decoration** - Font weight (600/700) for hierarchy, not lighter colors
+4. **Tokens before magic numbers** - Use design tokens from @spexop/theme
+5. **Composition before complexity** - Build up from simple parts
+6. **Standards before frameworks** - Web platform fundamentals
+7. **Accessibility before aesthetics** - WCAG AA+ compliance by default
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Check out our [Contributing Guidelines](https://github.com/spexop-ui/design-system/blob/main/CONTRIBUTING.md) to get started.
+This workspace is in **maintenance mode** focused on stability, documentation, and bug fixes. New advanced features are developed in the PRO workspace.
+
+**What we welcome:**
+- Bug fixes
+- Documentation improvements
+- Accessibility enhancements
+- Performance optimizations
+- Community contributions
+
+**What goes to PRO:**
+- New advanced features
+- New components
+- Advanced utilities
+- Experimental functionality
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for contribution guidelines.
 
 ---
 
 ## 📄 License
 
-All Spexop packages are released under the [MIT License](https://github.com/spexop-ui/design-system/blob/main/LICENSE).
+MIT © Spexop Team
+
+---
+
+## 🔗 Links
+
+- **Website**: <https://spexop.com>
+- **Documentation**: <https://github.com/spexop-ui/spexop-packages>
+- **npm**: [@spexop/react](https://www.npmjs.com/package/@spexop/react), [@spexop/theme](https://www.npmjs.com/package/@spexop/theme), [@spexop/icons](https://www.npmjs.com/package/@spexop/icons)
 
 ---
 
@@ -99,6 +172,6 @@ All Spexop packages are released under the [MIT License](https://github.com/spex
 
 **Built with ❤️ by the Spexop Team**
 
-[GitHub](https://github.com/spexop-ui) • [npm](https://www.npmjs.com/org/spexop) • [Website](https://spexop.design)
+[GitHub](https://github.com/spexop-ui/spexop-packages) • [npm](https://www.npmjs.com/org/spexop) • [Website](https://spexop.com)
 
 </div>
