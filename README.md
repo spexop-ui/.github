@@ -1,36 +1,33 @@
 # Spexop UI
 
-**Spexop UI — Open-source design system foundation and independent UI verification for AI-powered developers.**
+**A local-first, free open-source UI/UX companion for developers working with AI coding agents.**
 
-**Open Source**
+## Your agent leads. Spexop coordinates.
 
-## Build with AI. Keep your UI consistent.
+Your existing coding agent owns planning, design decisions, complex analysis, and risky work. Spexop is being built to coordinate bounded routine UI tasks through user-connected free or economical LLM API workers, independently check the results, and show progress and blockers in a simple local desktop view.
 
-Spexop UI is an open-source project being rebuilt to help developers establish design systems and verify AI-generated interfaces.
+**Current status: early local prototype, not a released desktop application.**
 
-**Current status: Active restructuring**
+- **Small, explicit tasks:** one local project, clear allowed files, acceptance criteria, and bounded attempts.
+- **Independent checks:** keep PASS, FAIL, and UNKNOWN distinct; connect evidence to the checked revision.
+- **Visible progress:** track tasks, milestones, blockers, and requests for the main agent or user.
+- **User-controlled connections:** Spexop remains provider-independent. Provider API charges and data policies are separate from the free software; there is no silent paid fallback.
 
-Existing packages are being reviewed. Design Foundation and Independent Verification are the next development priorities. Spexop UI is moving toward a single, free open-source project, with no paid feature tier. All new core capabilities will be free and open source.
+The current internal prototype uses test doubles and a local browser status panel. A real API worker benchmark, packaged desktop application, and independent external user acceptance have not been completed. The new implementation is currently private while security, source rights, and release checks remain open. There is no public R1 installer or announced release date.
 
-[Sponsor Spexop UI](https://github.com/sponsors/spexop-ui) · [View organization](https://github.com/spexop-ui)
+## Existing tools and public resources
 
-## Development priorities
+Theme, the Canonical Design Model, Foundation Capture, provenance, CSS Export, and Build Evidence remain valuable engineering work. They are preserved; they do not establish a finished companion or general CSS behavior equivalence.
 
-- **Design Foundation:** Review and improve the existing theme, token, and design-system tools so developers can establish consistent UI foundations.
-- **Design Contract (experimental):** A hypothesis for defining design boundaries and acceptance criteria before code generation; its usefulness is still being tested.
-- **CLI / MCP integration:** Existing development-mode tools are being reviewed. Reproducible package builds and consumer installation remain unverified for the rebuilt project.
-- **Independent Verification (under development):** Explore checks against actual application code and running interfaces. This is a development direction, not a released verification product.
+The [legacy icons repository](https://github.com/olmstedian/spexop-icons) is public and documents its source, package, and license-review limits. Existing npm packages are not a verified installation path for the new companion. Design Contract remains an experimental hypothesis, not a released feature or a prerequisite for R1.
 
-The next steps include package consolidation, licensing review, and reproducible build and installation checks. Updated installation instructions will be published after those checks are complete. Existing packages should not be treated as a verified installation path for the rebuilt project.
+[Project website](https://spexop.com) · [Public organization](https://github.com/spexop-ui) · [Sponsor Spexop](https://github.com/sponsors/spexop-ui)
 
-## Support the project
+## Support independent open-source work
 
-GitHub Sponsors supports the work of maintaining the project, improving documentation, and developing and testing its next steps. Sponsorship helps sustain the free open-source project; it does not unlock a separate paid edition.
+The former PRO/open-core model has ended. New core capabilities will be free and open source. Voluntary sponsorship supports maintenance, documentation, practical examples, testing, and the first verified companion workflow. It does not buy custom development, feature priority, an SLA, paid support, a Qos license, or product decision rights.
 
-The [Spexop organization website](https://spexop.com) is scheduled for a complete rebuild. Its current portfolio content is being replaced; this GitHub organization is the source for Spexop UI status.
-
-Follow this organization for public progress updates. The roadmap and package guidance will be updated as work is verified.
+Follow this organization for public updates. Implementation, verification, product acceptance, and release approval are separate milestones.
 
 ---
-
 MIT © Spexop Team
