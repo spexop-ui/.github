@@ -13,7 +13,7 @@ Your existing coding agent owns planning, design decisions, complex analysis, an
 - **Visible progress:** track tasks, milestones, blockers, and requests for the main agent or user.
 - **User-controlled connections:** Spexop remains provider-independent. Provider API charges and data policies are separate from the free software; there is no silent paid fallback.
 
-The current internal prototype uses test doubles and a local browser status panel. A real API worker benchmark, packaged desktop application, and independent external user acceptance have not been completed. The new implementation is currently private while security, source rights, and release checks remain open. There is no public R1 installer or announced release date.
+The current internal prototype uses test doubles and a local browser status panel. A real API worker benchmark, packaged desktop application, and independent external user acceptance have not been completed. Repository visibility is governed by separate security and source-rights checks. Public access to source, if enabled, is not a product release. There is no public R1 installer or announced release date.
 
 ## Existing tools and public resources
 
@@ -30,4 +30,4 @@ The former PRO/open-core model has ended. New core capabilities will be free and
 Follow this organization for public updates. Implementation, verification, product acceptance, and release approval are separate milestones.
 
 ---
-MIT © Spexop Team
+Licenses are stated in each repository's own LICENSE and notices.
